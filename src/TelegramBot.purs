@@ -175,14 +175,25 @@ foreign import _onMessage ::
     (Effect Unit)
 
 -- | For adding a callback for all messages.
-onMessage :: Bot -> (F Message -> Effect Unit) -> (Effect Unit)
-onMessage bot handler =
-  onMessage' bot $ handler <<< read'
+onMessage :: Bot -> (F Message -> Effect Unit) -> Effect Unit
+onMessage bot handler = onMessage' bot $ handler <<< read'
 
--- | For getting the `Foreign` value directly from onMessage.
-onMessage' :: Bot -> (Foreign -> Effect Unit) -> (Effect Unit)
-onMessage' bot handler =
-  runFn2 _onMessage bot handler
+-- | For getting the `Foreign` value directly from `onMessage`.
+onMessage' :: Bot -> (Foreign -> Effect Unit) -> Effect Unit
+onMessage' bot handler = runFn2 _onMessage bot handler
+
+foreign import _onInlineQuery ::
+  Fn2
+    Bot
+    (Foreign -> Effect Unit)
+    (Effect Unit)
+
+onInlineQuery :: Bot -> (F InlineQuery -> Effect Unit) -> Effect Unit
+onInlineQuery bot handler = onInlineQuery' bot $ handler <<< read'
+
+-- | For getting the `Foreign` value directly from `onInlineQuery`.
+onInlineQuery' :: Bot -> (Foreign -> Effect Unit) -> Effect Unit
+onInlineQuery' bot handler = runFn2 _onInlineQuery bot handler
 
 foreign import data Promise :: Type -> Type
 foreign import runPromise :: forall a

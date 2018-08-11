@@ -12,6 +12,14 @@ exports._sendMessage = function(bot, id, message, options) {
   };
 };
 
+exports._onInlineQuery = function(bot, eff) {
+  return function() {
+    bot.on("inline_query", function(query) {
+      eff(query)();
+    });
+  };
+};
+
 exports._answerInlineQuery = function(bot, id, results, options) {
   return function() {
     bot.answerInlineQuery(id, results, options);
