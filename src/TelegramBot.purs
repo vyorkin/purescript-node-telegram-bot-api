@@ -75,7 +75,7 @@ type User =
 -- | The Telegram `Chat` type.
 -- | See https://core.telegram.org/bots/api#chat
 type Chat =
-  { id :: String
+  { id :: Number
   , type :: String
   , first_name :: Maybe String
   , last_name :: Maybe String
