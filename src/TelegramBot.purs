@@ -108,14 +108,14 @@ connect = runFn2 _connect defaultOptions
 foreign import _sendMessage ::
   Fn4
     Bot
-    Int
+    String
     String
     Foreign
     (Effect Unit)
 
 sendMessage ::
   Bot ->
-  Int ->
+  String ->
   String ->
   Foreign ->
   Effect Unit
@@ -125,14 +125,14 @@ sendMessage bot id message options =
 foreign import _answerInlineQuery ::
   Fn4
     Bot
-    Int
+    String
     (Array InlineQueryResultDocument)
     Foreign
     (Effect Unit)
 
 answerInlineQuery ::
   Bot ->
-  Int ->
+  String ->
   (Array InlineQueryResultDocument) ->
   Foreign ->
   Effect Unit
